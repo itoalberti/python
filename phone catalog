@@ -1,0 +1,59 @@
+# PHONE CATALOGUE
+# 1) Include contact  → input: name and phone number
+# 2) Exclude contact  → input: phone number | output: message informing if exlusion was successful
+# 3) Search contact   → input: name | output: phone number or message saying that contact does not exist
+# 4) Create catalogue → creates empty catalogue and calls the functions to edit it (include, exclude and search)
+# 5) Print catalogue  → prints the phone catalogue after calling the implemented functions
+
+# tupla = ()        list = []
+phonelist={}
+
+# DEFINES THE USER'S OPTION
+def option():
+    o=int(input("Type the desired option:\n1) Include contact\n2) Exclude contact\n3) Search catalogue\n4) Create phone catalogue\n5) Print phone catalogue\n"))
+    return o
+
+i=option()
+# 1) INCLUDE CONTACT
+def include():
+    tel=int(input("Type the phone number: "))
+    nome=str(input("Type the person's name: "))
+    phonelist[tel]=nome
+    return phonelist
+# 2) EXCLUDE CONTACTS
+def exclude():
+    exc=int(input("Type the phone number you wish to delete: "))
+    if not exc in phonelist:
+        print('Nonexistent contact')
+    else:
+        phonelist.pop(exc)
+    return phonelist
+# 3) SEARCH CATALOGUE
+def search():
+    searchcontact=str(input("Type the name of the contact you wish to find: "))
+    for i in phonelist:
+        if phonelist[i]==searchcontact:
+            print("%s\'s phone number is" %searchcontact, i)
+    return phonelist
+# 4) CREATE CATALOGUE
+def createlist():
+    phonelist={}
+    return phonelist
+# 5) PRINT LIST
+def printlist():
+    for i in phonelist:
+        print(i, phonelist[i])
+
+# MAIN FUNCTION
+while i in (1, 2, 3, 4, 5):
+    if i==1:
+        phonelist=include()
+    if i==2:
+        phonelist=exclude()
+    if i==3:
+        phonelist=search()
+    if i==4:
+        phonelist=createlist()
+    if i==5:
+        printlist()
+    i=option()
