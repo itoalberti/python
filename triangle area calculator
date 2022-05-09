@@ -1,0 +1,27 @@
+# UA3 - TRIANGLE AREA CALCULATOR
+# this code receives as inputs the three points of a triangle in a cartesian plan and returns the triangle area
+import math
+from cmath import sqrt
+
+tri=[]
+
+for i in range(0,3): # i = lines of the triangle matrix (tri)
+    pointx=float(input('Type the coordinate x of point %i : ' %(i+1)))
+    pointy=float(input('Type the coordinate y of point %i : ' %(i+1)))
+    tri.append([pointx, pointy])
+print('The coordinates of the three points of the triangle are:\n',tri)
+
+# l1, l2 and l3 are the three sides of the triangle
+l1=math.sqrt((tri[(1)%3][0]-tri[0][0])**2 + (tri[(1)%3][1]-tri[0][1])**2)
+l2=math.sqrt((tri[(2)%3][0]-tri[1][0])**2 + (tri[(2)%3][1]-tri[1][1])**2)
+l3=math.sqrt((tri[(3)%3][0]-tri[2][0])**2 + (tri[(3)%3][1]-tri[2][1])**2)
+
+# Heron's Formula for the triangle area
+# check at: https://www.britannica.com/science/Herons-formula
+# s = triangle semiperimeter
+s=(l1+l2+l3)/2
+area=math.sqrt(s*(s-l1)*(s-l2)*(s-l3))
+
+# prints the triangle area
+print('The triangle area is', area)
+
