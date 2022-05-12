@@ -1,0 +1,56 @@
+# Given the tables with the quantities and types of interactions of users with 3 websites in the months of january and fevbruary, 
+# create a matrix to sum the interactions of the two months
+
+from re import S
+
+january=[[0, 0, 0],[0, 0, 0],[0, 0, 0],[0, 0, 0]]
+february=[[0, 0, 0],[0, 0, 0],[0, 0, 0],[0, 0, 0]]
+Sum=[[0, 0, 0],[0, 0, 0],[0, 0, 0],[0, 0, 0]]
+j=0
+aux=0
+for i in range(0,4): # i = lines
+    for j in range(0,3):
+        aux=j+1
+        if i==0:
+            january[i][j]=input('Type the amount of times website %i was shared in january: ' %aux)
+        if i==1:
+            january[i][j]=input('Type the amount of views website %i received in january: ' %aux)
+        if i==2:
+            january[i][j]=input('Type the amount of likes website %i received in january: ' %aux)
+        if i==3:
+            january[i][j]=input('Type the amount of comments for website %i in january: ' %aux)
+
+for i in range(0,4): # i = lines
+    for j in range(0,3):
+        aux=j+1
+        if i==0:
+            february[i][j]=input('Type the amount of times website %i was shared in february: ' %aux)
+        if i==1:
+            february[i][j]=input('Type the amount of views website %i received in february: ' %aux)
+        if i==2:
+            february[i][j]=input('Type the amount of likes website %i received in february: ' %aux)
+        if i==3:
+            february[i][j]=input('Type the amount of comments for website %i in february: ' %aux)
+
+for i in range(0,4):
+    for j in range(0,3):
+        Sum[i][j]=int(january[i][j])+int(february[i][j])
+
+print('Final report of the sum of interactions with websites 1, 2 and 3 in january and february:')
+for i in range(0,4):
+    if i==0:
+        print("Shares: ")
+    if i==1:
+        print("Views: ")
+    if i==2:
+        print("Likes: ")
+    if i==3:
+        print("Comments: ")
+    for j in range(0,3):
+        if j==0:
+            print("Website 1: " ,end='')
+        if j==1:
+            print("Website 2: " ,end='')
+        if j==2:
+            print("Website 3: " ,end='')
+        print(Sum[i][j])
