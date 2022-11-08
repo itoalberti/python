@@ -1,0 +1,97 @@
+# Time calculator from freecodecamp:
+# https://www.freecodecamp.org/learn/scientific-computing-with-python/scientific-computing-with-python-projects/time-calculator
+
+# -------------------INPUTS-------------------
+# start time in 12-hour format + AM/PM
+# duration time indicating number of hours and minutes
+# (optional) starting day of the week, case insensitive
+
+# ------------------OUTPUTS------------------
+# add the duration time to the start time and return the result
+# if result is in the next day, it should show (next day) after the time
+# if result is more than one day later, ut should show (n days later), where "n" is the number of days later
+
+# ----------------OBSERVATIONS----------------
+# if function is given the starting day of the week as a parameter, output must display day of the week in result
+# after the time and befure the number of days later
+
+def add_time(t1, t2, day=""):
+    import math
+    p1=t1.find(':') #p1 = int, position of ':' in t1
+    p2=t2.find(':') #p2 = int, position of ':' in t2
+    daycount=0
+    iDay=0
+    week=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+
+    # H1:M1  --> INITIAL TIME T1 -- H1, M1 INTEGERS
+    h1=int(t1[0:p1])
+    m1=int(t1[p1+1:p1+3])
+    # AMPM  --> VARIABLE TO STORE 'AM' OR 'PM'
+    ampm=t1[-2:]
+
+    # H2:M2  --> ADDED TIME -- H2, M2 INTEGERS
+    h2=int(t2[0:p2])
+    m2=int(t2[p2+1:p2+3])
+
+    # HR:MR --> RESULTING TIME
+    mr=(m1+m2)%60
+    hr=(h1+h2+(m1+m2)//60)%12
+
+    # hrint = counter of "half-days"
+    hrint=int((h1+h2+(m1+m2)//60)/12)
+
+    # Include suffix "AM" or "PM" in the result
+    if hrint%2==0:
+        ampmr=ampm.upper()
+    else:
+        if ampm.lower()=='am':
+            ampmr='PM'
+        if ampm.lower()=='pm':
+            ampmr='AM'
+            
+    # Day counter according to the amount of "half-days" (hrint)
+    if ampm.lower()=='am':
+        daycount=hrint//2
+    if ampm.lower()=='pm':
+        if hrint%2==0:
+            daycount=hrint//2
+        else:
+            daycount=hrint//2+1
+
+    # Scanning for the weekday
+    for i in range(len(week)):
+        if day!='' and day.lower() in week[i].lower():
+            # iDay = index of result weekday in array week[]
+            iDay=(i+daycount)%7
+
+    # Include in final code for adjustments (when time is 12:xx or minutes in hr are <10)
+    if hr==0:
+        hr=12
+    if mr<10:
+        mr='0'+str(mr)
+
+    # Printing results if there is no weekday input
+    if day=='':
+        if daycount<1:
+            return(print('Result: %s:%s %s' %(hr, mr, ampmr)))
+        if daycount==1:
+            return(print('Result: %s:%s %s (next day)' %(hr, mr, ampmr)))
+        if daycount>1:
+            return(print('Result: %s:%s %s (%d days later)' %(hr, mr, ampmr, daycount)))
+
+    # Printing results if there is weekday input
+    if day!='':
+        if daycount<1:
+            return(print('Result: %s:%s %s, %s' %(hr, mr, ampmr, week[iDay])))
+        if daycount==1:
+            return(print('Result: %s:%s %s, %s (next day)' %(hr, mr, ampmr, week[iDay])))
+        if daycount>1:
+            return(print('Result: %s:%s %s, %s (%d days later)' %(hr, mr, ampmr, week[iDay], daycount)))
+
+# Tests from freecodecamp:
+add_time("3:00 PM", "3:10")
+add_time("11:30 AM", "2:32", "Monday")
+add_time("11:43 AM", "00:20")
+add_time("10:10 PM", "3:30")
+add_time("11:43 PM", "24:20", "tueSday")
+add_time("6:30 PM", "205:12")
