@@ -1,0 +1,53 @@
+import random
+import copy
+
+class Hat:
+    # ** = passes several optional arguments with key-value pairs
+    # __init__ creates a list with all the balls in the hat
+    def __init__(self, **balls):
+        self.ballslist=[]
+        for color, value in balls.items():
+            self.ballslist+=[color]*value
+
+    # creates a list with all the balls drawn
+    def draw(self, draws):
+        drawnballs=[]
+        i=0
+        for i in range(draws):
+            randomball=random.randint(0, len(self.ballslist)-1)
+            drawnballs.append(self.ballslist.pop(randomball))
+        return drawnballs
+
+# The experiment function should return a probability.
+
+# For example, if you want to determine the probability of getting at least two red balls and one green ball
+# when you draw five balls from a hat containing six black, four red, and three green. To do this, you will
+# perform N experiments, count how many times M you get at least two red balls and one green ball, and estimate
+# the probability as M/N. Each experiment consists of starting with a hat containing the specified balls,
+# drawing several balls, and checking if you got the balls you were attempting to draw. 
+
+def experiment(hat, expected_balls, num_balls_drawn, num_experiments):
+    # M = success amount in experiments
+    M=0
+    colorcount=0
+    probability=0
+    
+    myhat=copy.deepcopy(hat)
+    drawnballs=myhat.draw(num_balls_drawn)
+
+    for n in range(num_experiments):
+        for color in expected_balls.keys():
+            if drawnballs.count(color)>=expected_balls[color]:
+                colorcount+=1
+            if colorcount==len(expected_balls):
+                M+=1
+    # print(M)
+    # print(drawnballs)
+    probability=M/num_experiments
+    
+    return probability
+
+# TESTS
+hat1=Hat(blue=2, red=2, green=20)
+print(hat1.ballslist)
+print(experiment(hat=hat1, expected_balls={"blue":2, "red":2}, num_balls_drawn=10, num_experiments=100))
