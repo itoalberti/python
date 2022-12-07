@@ -1,5 +1,6 @@
 # Budget App from freecodecamp
 # https://www.freecodecamp.org/learn/scientific-computing-with-python/scientific-computing-with-python-projects/budget-app
+# code was created based on the code shown in video https://www.youtube.com/watch?v=2OL3rbEYWLU&t=478s from "Landon Schlangen" channel
 
 
 def truncate(n):
